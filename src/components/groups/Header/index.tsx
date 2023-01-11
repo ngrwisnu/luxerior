@@ -1,15 +1,28 @@
 import { Link } from "react-router-dom";
 
-const Header = () => {
+interface HeaderType {
+  theme: "white" | "dark";
+  position?: "absolute" | string;
+}
+
+const Header = (props: HeaderType) => {
+  const { theme, position } = props;
+
   return (
-    <header className="absolute w-full z-50 px-4">
+    <header
+      className={`${
+        position === "absolute" ? "absolute" : ""
+      } w-full z-50 px-4`}
+    >
       <div className="container mx-auto py-5">
         <div className="flex flex-stretch items-center">
           <div className="w-56 items-center flex">
-            <img
-              src="images/logo.png"
-              alt="Luxspace | Fulfill your house with beautiful furniture"
-            />
+            <Link to="/">
+              <img
+                src="/images/logo.png"
+                alt="Luxspace | Fulfill your house with beautiful furniture"
+              />
+            </Link>
           </div>
           <div className="w-full"></div>
           <div className="w-auto">
@@ -20,7 +33,11 @@ const Header = () => {
               <li className="mx-3 py-6 md:py-0">
                 <Link
                   to="/showcase"
-                  className="text-black md:text-white hover:underline"
+                  className={`hover:underline ${
+                    theme === "white"
+                      ? "text-black md:text-white"
+                      : "text-white md:text-black"
+                  }`}
                 >
                   Showcase
                 </Link>
@@ -28,7 +45,11 @@ const Header = () => {
               <li className="mx-3 py-6 md:py-0">
                 <Link
                   to="/catalog"
-                  className="text-black md:text-white hover:underline"
+                  className={`hover:underline ${
+                    theme === "white"
+                      ? "text-black md:text-white"
+                      : "text-white md:text-black"
+                  }`}
                 >
                   Catalog
                 </Link>
@@ -36,7 +57,11 @@ const Header = () => {
               <li className="mx-3 py-6 md:py-0">
                 <Link
                   to="/delivery"
-                  className="text-black md:text-white hover:underline"
+                  className={`hover:underline ${
+                    theme === "white"
+                      ? "text-black md:text-white"
+                      : "text-white md:text-black"
+                  }`}
                 >
                   Delivery
                 </Link>
@@ -44,7 +69,11 @@ const Header = () => {
               <li className="mx-3 py-6 md:py-0">
                 <Link
                   to="/rewards"
-                  className="text-black md:text-white hover:underline"
+                  className={`hover:underline ${
+                    theme === "white"
+                      ? "text-black md:text-white"
+                      : "text-white md:text-black"
+                  }`}
                 >
                   Rewards
                 </Link>
@@ -56,7 +85,11 @@ const Header = () => {
               <li className="ml-6 block md:hidden">
                 <button
                   id="menu-toggler"
-                  className="relative flex z-50 items-center justify-center w-8 h-8 text-black md:text-white focus:outline-none"
+                  className={`relative flex z-50 items-center justify-center w-8 h-8 focus:outline-none ${
+                    theme === "white"
+                      ? "text-black md:text-white"
+                      : "text-white md:text-black"
+                  }`}
                 >
                   <svg
                     className="fill-current"
@@ -73,7 +106,11 @@ const Header = () => {
               <li className="ml-6">
                 <a
                   id="header-cart"
-                  className="flex items-center justify-center w-8 h-8 text-black md:text-white"
+                  className={`flex items-center justify-center w-8 h-8 ${
+                    theme === "white"
+                      ? "text-black md:text-white"
+                      : "text-white md:text-black"
+                  }`}
                   href="cart.html"
                 >
                   <svg
