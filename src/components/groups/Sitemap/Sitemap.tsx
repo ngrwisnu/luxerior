@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const AsideMenu = () => {
+const Sitemap = () => {
   return (
     <section className="">
       <div className="border-t border-b border-gray-200 py-12 mt-16 px-4">
@@ -110,4 +110,4 @@ const AsideMenu = () => {
   );
 };
 
-export default AsideMenu;
+export default Sitemap;
