@@ -1,6 +1,8 @@
-import React from "react";
+interface HeroType {
+  clickHandler?: any;
+}
 
-const Hero = () => {
+const Hero = (props: HeroType) => {
   return (
     <section className="flex items-center hero">
       <div className="w-full absolute z-20 inset-0 md:relative md:w-1/2 text-center flex flex-col justify-center hero-caption">
@@ -14,12 +16,12 @@ const Hero = () => {
           membuat ruangan terasa homey
         </h2>
         <div>
-          <a
-            href="#browse-the-room"
+          <button
+            onClick={props.clickHandler}
             className="bg-pink-400 text-black hover:bg-black hover:text-pink-400 rounded-full px-8 py-3 mt-4 inline-block flex-none transition duration-200"
           >
             Explore Now
-          </a>
+          </button>
         </div>
       </div>
       <div className="w-full inset-0 md:relative md:w-1/2">
