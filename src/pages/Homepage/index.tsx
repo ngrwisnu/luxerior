@@ -12,7 +12,7 @@ import axios from "axios";
 const url = "https://5a743f9c-04ee-40f9-bc6e-a4c45bdf78cd.mock.pstmn.io";
 
 const Homepage = () => {
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const linkRef = useRef<HTMLHeadingElement>(null);
 
@@ -30,9 +30,11 @@ const Homepage = () => {
             axios.get(`${url}/api/categories/?page=1&limit=4`),
           ])
           .then(
-            axios.spread((res1, res2) => {
-              let apiData = res2.data.data;
-              setCategories(apiData);
+            axios.spread(async (resProd, resCat) => {
+              let apiCategories = await resCat.data.data;
+              let apiProducts = await resProd.data.data;
+              setCategories(apiCategories);
+              setProducts(apiProducts);
             })
           );
       };
@@ -58,7 +60,7 @@ const Homepage = () => {
       <Header theme="white" position="absolute" />
       <Hero clickHandler={() => goto(linkRef.current)} />
       <BrowseRooms refLink={linkRef} categories={categories} />
-      <JustArrive />
+      <JustArrive products={products} />
       <ClientsBrand />
       <AsideMenu />
       <Footer />
