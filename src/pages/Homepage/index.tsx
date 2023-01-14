@@ -12,7 +12,7 @@ import axios from "axios";
 const url = "https://5a743f9c-04ee-40f9-bc6e-a4c45bdf78cd.mock.pstmn.io";
 
 const Homepage = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const linkRef = useRef<HTMLHeadingElement>(null);
 

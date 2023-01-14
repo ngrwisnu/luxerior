@@ -1,8 +1,15 @@
 import { numberFormatter } from "../../../../helpers/format/numberFormatter";
 import { BrowseSectionType, ratioType } from "./BrowseRoomsTypes";
+import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
 const BrowseRooms = (props: BrowseSectionType) => {
   const { categories } = props;
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (categories.length !== 0) return setIsLoading(false);
+  }, [categories]);
 
   const ratioClassNames: ratioType = {
     wrapper: {
@@ -37,41 +44,44 @@ const BrowseRooms = (props: BrowseSectionType) => {
           </h3>
         </div>
         <div className="grid grid-rows-2 grid-cols-9 gap-4">
-          {categories.map((category, index) => {
-            console.log(category);
-            return (
-              <div
-                key={category.id}
-                className={`relative ${
-                  ratioClassNames.wrapper.md[category.ratio.md]
-                } ${
-                  ratioClassNames.wrapper.default[category.ratio.default]
-                } card`}
-                style={{ height: index === 0 ? 180 : "auto" }}
-              >
-                <div className="card-shadow rounded-xl">
-                  <img
-                    src={`images/${category.imageUrl}`}
-                    alt=""
-                    className="w-full h-full object-cover object-center overlay overflow-hidden rounded-xl"
-                  />
-                </div>
+          {isLoading ? (
+            <Loading ratioTarget={ratioClassNames} />
+          ) : (
+            categories.map((category, index) => {
+              return (
                 <div
-                  className={`overlay ${
-                    ratioClassNames.meta[category.ratio.md]
-                  }`}
+                  key={category.id}
+                  className={`relative ${
+                    ratioClassNames.wrapper.md[category.ratio.md]
+                  } ${
+                    ratioClassNames.wrapper.default[category.ratio.default]
+                  } card`}
+                  style={{ height: index === 0 ? 180 : "auto" }}
                 >
-                  <h5 className="text-lg font-semibold">{category.title}</h5>
-                  <span className="">
-                    {numberFormatter(category.products)} item(s)
-                  </span>
+                  <div className="card-shadow rounded-xl">
+                    <img
+                      src={`images/${category.imageUrl}`}
+                      alt=""
+                      className="w-full h-full object-cover object-center overlay overflow-hidden rounded-xl"
+                    />
+                  </div>
+                  <div
+                    className={`overlay ${
+                      ratioClassNames.meta[category.ratio.md]
+                    }`}
+                  >
+                    <h5 className="text-lg font-semibold">{category.title}</h5>
+                    <span className="">
+                      {numberFormatter(category.products)} item(s)
+                    </span>
+                  </div>
+                  <a href="details.html" className="stretched-link">
+                    {/* <!-- fake children --> */}
+                  </a>
                 </div>
-                <a href="details.html" className="stretched-link">
-                  {/* <!-- fake children --> */}
-                </a>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
     </section>
