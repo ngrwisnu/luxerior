@@ -6,7 +6,6 @@ interface LoadingType {
 
 const Loading = ({ numOfProducts }: LoadingType) => {
   const countCard = new Array(numOfProducts).fill("");
-  console.log(countCard);
 
   return (
     <>

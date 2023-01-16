@@ -1,68 +1,70 @@
-const ProductPreview = () => {
+import { useState, useEffect } from "react";
+import parse from "html-react-parser";
+import { numberFormatter } from "../../../helpers/format/numberFormatter";
+
+interface ProductPreviewType {
+  title: string;
+  price: number;
+  description: string;
+  imageUrl: Array<string>;
+}
+
+const ProductPreview = (props: ProductPreviewType) => {
+  const { title, price, description, imageUrl } = props;
+
+  const [slider, setSlider] = useState("");
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
+  function sliderHandler(item: string): any {
+    setSlider(item);
+  }
+
   return (
     <section className="container mx-auto">
       <div className="flex flex-wrap my-4 md:my-12">
         <div className="w-full md:hidden px-4">
-          <h2 className="text-5xl font-semibold">Chair Thatty</h2>
-          <span className="text-xl">IDR 12.000.000</span>
+          <h2 className="text-5xl font-semibold">{title}</h2>
+          <span className="text-xl">IDR {numberFormatter(price)}</span>
         </div>
         <div className="flex-1">
           <div className="slider">
             <div className="thumbnail">
-              <div className="px-2">
-                <div
-                  className="item selected"
-                  data-img="/images/showcase-1.front.jpg"
-                >
-                  <img
-                    src="/images/showcase-1.front.jpg"
-                    alt="front"
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                </div>
-              </div>
-              <div className="px-2">
-                <div className="item" data-img="/images/showcase-1.back.jpg">
-                  <img
-                    src="/images/showcase-1.back.jpg"
-                    alt="back"
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                </div>
-              </div>
-              <div className="px-2">
-                <div className="item" data-img="/images/showcase-1.rear.jpg">
-                  <img
-                    src="/images/showcase-1.rear.jpg"
-                    alt="rear"
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                </div>
-              </div>
-              <div className="px-2">
-                <div className="item" data-img="/images/showcase-1.side.jpg">
-                  <img
-                    src="/images/showcase-1.side.jpg"
-                    alt="side"
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                </div>
-              </div>
-              <div className="px-2">
-                <div className="item" data-img="/images/showcase-1.top.jpg">
-                  <img
-                    src="/images/showcase-1.top.jpg"
-                    alt="top"
-                    className="object-cover w-full h-full rounded-lg"
-                  />
-                </div>
-              </div>
+              {imageUrl.map((image: string) => {
+                return (
+                  <div
+                    className="px-2"
+                    onClick={() => sliderHandler(image)}
+                    key={image}
+                  >
+                    <div
+                      className={["item", slider === image && "selected"].join(
+                        " "
+                      )}
+                    >
+                      <img
+                        src={image}
+                        alt="front"
+                        className="object-cover w-full h-full rounded-lg"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             <div className="preview">
               <div className="item rounded-lg h-full overflow-hidden">
                 <img
-                  src="/images/showcase-1.front.jpg"
-                  alt="front"
+                  src={
+                    slider === "" || slider === undefined ? imageUrl[0] : slider
+                  }
+                  alt=""
                   className="object-cover w-full h-full rounded-lg"
                 />
               </div>
@@ -70,8 +72,8 @@ const ProductPreview = () => {
           </div>
         </div>
         <div className="flex-1 px-4 md:p-6">
-          <h2 className="text-5xl font-semibold">Chair Thatty</h2>
-          <p className="text-xl">IDR 12.000.000</p>
+          <h2 className="text-5xl font-semibold">{title}</h2>
+          <p className="text-xl">IDR {numberFormatter(price)}</p>
 
           <a
             href="cart.html"
@@ -94,16 +96,7 @@ const ProductPreview = () => {
           <hr className="my-8" />
 
           <h6 className="text-xl font-semibold mb-4">About the product</h6>
-          <p className="text-xl leading-7 mb-6">
-            Tailored to a level of perfection synonymous with that of a Savile
-            Row suit and with understated quality in the detail, Jetty has been
-            influenced by timeless 1950s style.
-          </p>
-          <p className="text-xl leading-7">
-            Providing a subtle nod to the past, Jetty also provides a perfect
-            solution for the way we work today. A comprehensive product family,
-            Jetty features a variety of elegant chairs and sofas.
-          </p>
+          {description && parse(description)}
         </div>
       </div>
     </section>

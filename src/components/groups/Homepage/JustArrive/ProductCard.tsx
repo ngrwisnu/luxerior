@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { numberFormatter } from "../../../../helpers/format/numberFormatter";
 
 interface ProductCardType {
@@ -41,9 +42,12 @@ const ProductCard = ({ product }: ProductCardType) => {
       </div>
       <h5 className="text-lg font-semibold mt-4">{product.title}</h5>
       <span className="">IDR {numberFormatter(product.price)}</span>
-      <a href="details.html" className="stretched-link">
+      <Link
+        to={`/categories/${product.idc}/product/${product.id}`}
+        className="stretched-link"
+      >
         {/* <!-- fake children --> */}
-      </a>
+      </Link>
     </div>
   );
 };

@@ -1,6 +1,15 @@
 import React from "react";
+import { numberFormatter } from "../../../helpers/format/numberFormatter";
 
-const ProductSuggestions = () => {
+interface RelatedProductsType {
+  relatedProducts: {
+    title: string;
+    price: number;
+    imageUrl: string;
+  }[];
+}
+
+const ProductSuggestions = (props: RelatedProductsType) => {
   return (
     <section className="bg-gray-100 px-4 py-16">
       <div className="container mx-auto">
@@ -11,102 +20,30 @@ const ProductSuggestions = () => {
           </h3>
         </div>
         <div className="flex overflow-x-auto mb-4 -mx-3">
-          <div className="px-3 flex-none" style={{ width: "320px" }}>
-            <div className="rounded-xl p-4 pb-8 relative bg-white">
-              <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
-                <img
-                  src="/images/chair-1.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
+          {props.relatedProducts.map((item) => {
+            return (
+              <div
+                className="px-3 flex-none"
+                style={{ width: "320px" }}
+                key={item.imageUrl}
+              >
+                <div className="rounded-xl p-4 pb-8 relative bg-white">
+                  <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
+                    <img
+                      src="/images/chair-1.png"
+                      alt=""
+                      className="w-full h-full object-cover object-center"
+                    />
+                  </div>
+                  <h5 className="text-lg font-semibold mt-4">{item.title}</h5>
+                  <span className="">IDR {numberFormatter(item.price)}</span>
+                  <a href="details.html" className="stretched-link">
+                    {/* <!-- fake children --> */}
+                  </a>
+                </div>
               </div>
-              <h5 className="text-lg font-semibold mt-4">Cangkir Mauttie</h5>
-              <span className="">IDR 89.300.000</span>
-              <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-              </a>
-            </div>
-          </div>
-          <div className="px-3 flex-none" style={{ width: "320px" }}>
-            <div className="rounded-xl p-4 pb-8 relative bg-white">
-              <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
-                <img
-                  src="/images/chair-2.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              <h5 className="text-lg font-semibold mt-4">Saman Kakka</h5>
-              <span className="">IDR 14.500.399</span>
-              <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-              </a>
-            </div>
-          </div>
-          <div className="px-3 flex-none" style={{ width: "320px" }}>
-            <div className="rounded-xl p-4 pb-8 relative bg-white">
-              <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
-                <img
-                  src="/images/chair-3.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              <h5 className="text-lg font-semibold mt-4">Lino Dino</h5>
-              <span className="">IDR 22.000.000</span>
-              <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-              </a>
-            </div>
-          </div>
-          <div className="px-3 flex-none" style={{ width: "320px" }}>
-            <div className="rounded-xl p-4 pb-8 relative bg-white">
-              <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
-                <img
-                  src="/images/chair-1.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              <h5 className="text-lg font-semibold mt-4">Syail Ammeno</h5>
-              <span className="">IDR 6.399.999</span>
-              <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-              </a>
-            </div>
-          </div>
-          <div className="px-3 flex-none" style={{ width: "320px" }}>
-            <div className="rounded-xl p-4 pb-8 relative bg-white">
-              <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
-                <img
-                  src="/images/chair-1.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              <h5 className="text-lg font-semibold mt-4">Syail Ammeno</h5>
-              <span className="">IDR 6.399.999</span>
-              <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-              </a>
-            </div>
-          </div>
-          <div className="px-3 flex-none" style={{ width: "320px" }}>
-            <div className="rounded-xl p-4 pb-8 relative bg-white">
-              <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
-                <img
-                  src="/images/chair-1.png"
-                  alt=""
-                  className="w-full h-full object-cover object-center"
-                />
-              </div>
-              <h5 className="text-lg font-semibold mt-4">Syail Ammeno</h5>
-              <span className="">IDR 6.399.999</span>
-              <a href="details.html" className="stretched-link">
-                {/* <!-- fake children --> */}
-              </a>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </section>
