@@ -4,6 +4,23 @@
 @tailwind components;
 @tailwind utilities;
 
+/* skeleton animation */
+@layer components {
+  .skeleton {
+    animation: skeleton-animation 800ms linear infinite alternate;
+  }
+
+  @keyframes skeleton-animation {
+    from {
+      background-color: initial;
+    }
+
+    to {
+      background-color: #f3f4f6;
+    }
+  }
+}
+
 /* utils */
 
 .grid {

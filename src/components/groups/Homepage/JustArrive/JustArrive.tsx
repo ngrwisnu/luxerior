@@ -35,7 +35,9 @@ const JustArrive = (props: ProductsType) => {
         {/* <!-- <div className="overflow-hidden z-10"> --> */}
         <div className="flex -mx-4 flex-row relative">
           {isLoading ? (
-            <Loading />
+            <Loading
+              numOfProducts={products.length !== 0 ? products.length : 6}
+            />
           ) : (
             products.map((product) => {
               return <ProductCard product={product} key={product.id} />;
