@@ -12,13 +12,7 @@ import { initialValueType } from "./Details";
 
 const Detail = () => {
   const [error, setError] = useState(false);
-  const [details, setDetails] = useState<initialValueType>({
-    title: "",
-    price: 0,
-    description: "",
-    imgUrls: [],
-    relatedProducts: [],
-  });
+  const [details, setDetails] = useState<initialValueType>(null!);
   const { productId } = useParams();
 
   useEffect(() => {
@@ -44,20 +38,13 @@ const Detail = () => {
           { url: "/categories/1212/product/1123", name: "Details" },
         ]}
       />
-      {error && (
+      {error && details === null && (
         <div className="flex justify-center items-center w-full h-32">
           <h4 className="text-3xl">Product Not Found!</h4>
         </div>
       )}
-      {!error && (
-        <ProductPreview
-          title={details.title}
-          price={details.price}
-          description={details.description}
-          imageUrl={details.imgUrls}
-        />
-      )}
-      {!error && (
+      {!error && details !== null && <ProductPreview details={details} />}
+      {!error && details !== null && (
         <ProductSuggestions relatedProducts={details.relatedProducts} />
       )}
 
