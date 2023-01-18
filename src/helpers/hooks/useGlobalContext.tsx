@@ -1,6 +1,12 @@
 import React, { createContext, useContext, useReducer } from "react";
+import { initialValueType } from "../../pages/Detail/Details";
 
 const GlobalContext = createContext<any>(null!);
+
+interface ActionforGlobalContextType {
+  type: "ADD_TO_CART";
+  item: initialValueType;
+}
 
 const initialState = {
   cart: {},
@@ -16,7 +22,10 @@ export function useGlobalContext() {
   return { state, dispatch };
 }
 
-function Reducer(state: typeof initialState, action: any) {
+function Reducer(
+  state: typeof initialState,
+  action: ActionforGlobalContextType
+) {
   switch (action.type) {
     case "ADD_TO_CART":
       return {

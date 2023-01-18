@@ -11,7 +11,7 @@ interface ProductPreviewType {
 const ProductPreview = (props: ProductPreviewType) => {
   const { details } = props;
 
-  const { state, dispatch } = useGlobalContext();
+  const { dispatch } = useGlobalContext();
 
   const [slider, setSlider] = useState("");
 
@@ -26,9 +26,6 @@ const ProductPreview = (props: ProductPreviewType) => {
   function sliderHandler(item: string): any {
     setSlider(item);
   }
-
-  console.log(state);
-  console.log(dispatch);
 
   return (
     <section className="container mx-auto">
