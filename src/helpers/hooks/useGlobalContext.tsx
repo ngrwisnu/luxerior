@@ -4,12 +4,15 @@ import { initialValueType } from "../../pages/Detail/Details";
 const GlobalContext = createContext<any>(null!);
 
 interface ActionforGlobalContextType {
-  type: "ADD_TO_CART";
+  type: "ADD_TO_CART" | "REMOVE_FROM_CART" | "RESET_CART";
   item: initialValueType;
+  id: number;
 }
 
+let cart: Record<string, any> = {};
+
 const initialState = {
-  cart: {},
+  cart,
 };
 
 export function useGlobalContext() {
@@ -35,23 +38,25 @@ function Reducer(
           : { [action.item.id]: action.item },
       };
 
-    // case "REMOVE_FROM_CART":
-    //   return {
-    //     ...state,
-    //     cart: Object.keys(state.cart)
-    //       .filter((key) => +key !== +action.id)
-    //       .reduce((acc, key) => {
-    //         const item = state.cart[key];
-    //         acc[item.id] = item;
-    //         return acc;
-    //       }, {}),
-    //   };
+    case "REMOVE_FROM_CART":
+      const getFilteredItem = (initValue: any, key: string) => {
+        let item = state.cart[key];
+        initValue[item.id] = item;
+        return initValue;
+      };
 
-    // case "RESET_CART":
-    //   return {
-    //     ...state,
-    //     cart: initialState.cart,
-    //   };
+      return {
+        ...state,
+        cart: Object.keys(state.cart)
+          .filter((key) => +key !== +action.id)
+          .reduce(getFilteredItem, {}),
+      };
+
+    case "RESET_CART":
+      return {
+        ...state,
+        cart: initialState.cart,
+      };
 
     default: {
       throw new Error(`Unhandled action type ${action.type}`);
@@ -61,6 +66,5 @@ function Reducer(
 
 export default function Provider(props: any) {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  // console.log(state);
   return <GlobalContext.Provider value={[state, dispatch]} {...props} />;
 }

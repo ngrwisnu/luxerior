@@ -7,7 +7,6 @@ import BrowseRooms from "../../components/groups/Homepage/BrowseRooms/BrowseRoom
 import AsideMenu from "../../components/groups/Sitemap/Sitemap";
 import { useEffect, useRef, useState } from "react";
 import useModalDOM from "../../helpers/hooks/useModalDOM";
-import axios from "axios";
 
 const url = "https://5a743f9c-04ee-40f9-bc6e-a4c45bdf78cd.mock.pstmn.io";
 
@@ -18,28 +17,25 @@ const Homepage = () => {
 
   useEffect(() => {
     try {
-      const getProduct = async () => {
-        // let response = await axios.get(`${url}/api/products/?page=1&limit=10`);
-        // console.log(response);
-        // let theData = response.data;
-        // console.log(theData);
-
-        await axios
-          .all([
-            axios.get(`${url}/api/products/?page=1&limit=10`),
-            axios.get(`${url}/api/categories/?page=1&limit=4`),
-          ])
-          .then(
-            axios.spread(async (resProd, resCat) => {
-              let apiCategories = await resCat.data.data;
-              let apiProducts = await resProd.data.data;
-              setCategories(apiCategories);
-              setProducts(apiProducts);
-            })
-          );
+      const getData = async () => {
+        let data = await fetch(`${url}/api/products/?page=1&limit=10`);
+        let response = await data.json();
+        setProducts(response.data);
       };
+      getData();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
-      getProduct();
+  useEffect(() => {
+    try {
+      const getData = async () => {
+        let data = await fetch(`${url}/api/categories/?page=1&limit=4`);
+        let response = await data.json();
+        setCategories(response.data);
+      };
+      getData();
     } catch (error) {
       console.log(error);
     }
@@ -60,6 +56,7 @@ const Homepage = () => {
       <Header theme="white" position="absolute" />
       <Hero clickHandler={() => goto(linkRef.current)} />
       <BrowseRooms refLink={linkRef} categories={categories} />
+      {/* @ts-ignore */}
       <JustArrive products={products} />
       <ClientsBrand />
       <AsideMenu />
