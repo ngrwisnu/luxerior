@@ -9,7 +9,7 @@ interface HeaderType {
 }
 
 const Header = (props: HeaderType) => {
-  const [toggleMenu, setToggleMenu] = useState(false);
+  // const [toggleMenu, setToggleMenu] = useState(false);
   const [isCartChanged, setCartChanged] = useState(false);
 
   const { theme, position } = props;

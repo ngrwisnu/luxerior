@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import Loading from "./Loading";
 import ProductCard from "./ProductCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper";
+import "swiper/css";
+import "swiper/css/free-mode";
 
 interface ProductsType {
   products: {
@@ -15,6 +19,9 @@ interface ProductsType {
 const JustArrive = (props: ProductsType) => {
   const { products } = props;
   const [isLoading, setIsLoading] = useState(true);
+  const screenWidth = window.innerWidth;
+
+  let currentView = screenWidth >= 1024 ? 4 : screenWidth >= 648 ? 2 : 1;
 
   useEffect(() => {
     if (products.length !== 0) return setIsLoading(false);
@@ -39,16 +46,25 @@ const JustArrive = (props: ProductsType) => {
               numOfProducts={products.length !== 0 ? products.length : 6}
             />
           )}
-
-          {products.length !== 0 && !isLoading ? (
-            products.map((product) => {
-              return <ProductCard product={product} key={product.id} />;
-            })
-          ) : (
-            <div className="flex justify-center items-center w-full h-full">
-              <p>No products found!</p>
-            </div>
-          )}
+          <Swiper
+            freeMode={true}
+            modules={[FreeMode]}
+            slidesPerView={currentView}
+          >
+            {products.length !== 0 && !isLoading ? (
+              products.map((product) => {
+                return (
+                  <SwiperSlide key={product.id}>
+                    <ProductCard product={product} />
+                  </SwiperSlide>
+                );
+              })
+            ) : (
+              <div className="flex justify-center items-center w-full h-full">
+                <p>No products found!</p>
+              </div>
+            )}
+          </Swiper>
         </div>
         {/* <!-- </div> --> */}
       </div>

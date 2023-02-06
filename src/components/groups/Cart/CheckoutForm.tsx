@@ -55,17 +55,17 @@ const CheckoutForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${url}/api/checkout/meta`, {
+      const response = await fetch(`${url}/api/checkout`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/JSON",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...payload,
           cart: Object.keys(state.cart).map((key) => state.cart[key]),
         }),
       });
-      const data = await response.json();
+      const data = response.json();
       console.log(data);
 
       if (data) {
