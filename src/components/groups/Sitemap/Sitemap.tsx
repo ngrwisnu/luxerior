@@ -11,7 +11,7 @@ const Sitemap = () => {
         <div className="flex justify-center mb-8">
           <img
             src="/images/logo.png"
-            alt="Luxspace | Fulfill your house with beautiful furniture"
+            alt="Luxerior | Fulfill your house with beautiful furniture"
           />
         </div>
         <aside className="container mx-auto">

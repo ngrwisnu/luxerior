@@ -40,7 +40,7 @@ const Header = (props: HeaderType) => {
             <Link to="/">
               <img
                 src="/images/logo.png"
-                alt="Luxspace | Fulfill your house with beautiful furniture"
+                alt="Luxerior | Fulfill your house with beautiful furniture"
               />
             </Link>
           </div>

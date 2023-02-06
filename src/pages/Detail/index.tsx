@@ -17,7 +17,7 @@ const Detail = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.URL}/api/products/${productId}`)
+      .get(`${process.env.REACT_APP_URL}/api/products/${productId}`)
       .then((response) => setDetails(response.data))
       .catch((error) => {
         if (error) {

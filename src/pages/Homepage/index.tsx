@@ -17,7 +17,7 @@ const Homepage = () => {
     try {
       const getData = async () => {
         let data = await fetch(
-          `${process.env.URL}/api/products/?page=1&limit=10`
+          `${process.env.REACT_APP_URL}/api/products/?page=1&limit=10`
         );
         let response = await data.json();
         setProducts(response.data);
@@ -32,7 +32,7 @@ const Homepage = () => {
     try {
       const getData = async () => {
         let data = await fetch(
-          `${process.env.URL}/api/categories/?page=1&limit=4`
+          `${process.env.REACT_APP_URL}/api/categories/?page=1&limit=4`
         );
         let response = await data.json();
         setCategories(response.data);

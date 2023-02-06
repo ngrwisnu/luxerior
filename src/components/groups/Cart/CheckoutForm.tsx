@@ -30,7 +30,9 @@ const CheckoutForm = () => {
   useEffect(() => {
     try {
       const getData = async () => {
-        let data = await fetch(`${process.env.URL}/api/checkout/meta`);
+        let data = await fetch(
+          `${process.env.REACT_APP_URL}/api/checkout/meta`
+        );
         let response = await data.json();
         setMetaCheckout(response);
       };
@@ -53,16 +55,19 @@ const CheckoutForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${process.env.URL}/api/checkout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...payload,
-          cart: Object.keys(state.cart).map((key) => state.cart[key]),
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_URL}/api/checkout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...payload,
+            cart: Object.keys(state.cart).map((key) => state.cart[key]),
+          }),
+        }
+      );
       const data = response.json();
       console.log(data);
 
