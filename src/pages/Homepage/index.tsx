@@ -8,8 +8,6 @@ import AsideMenu from "../../components/groups/Sitemap/Sitemap";
 import { useEffect, useRef, useState } from "react";
 import useModalDOM from "../../helpers/hooks/useModalDOM";
 
-const url = "https://5a743f9c-04ee-40f9-bc6e-a4c45bdf78cd.mock.pstmn.io";
-
 const Homepage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -18,7 +16,9 @@ const Homepage = () => {
   useEffect(() => {
     try {
       const getData = async () => {
-        let data = await fetch(`${url}/api/products/?page=1&limit=10`);
+        let data = await fetch(
+          `${process.env.URL}/api/products/?page=1&limit=10`
+        );
         let response = await data.json();
         setProducts(response.data);
       };
@@ -31,7 +31,9 @@ const Homepage = () => {
   useEffect(() => {
     try {
       const getData = async () => {
-        let data = await fetch(`${url}/api/categories/?page=1&limit=4`);
+        let data = await fetch(
+          `${process.env.URL}/api/categories/?page=1&limit=4`
+        );
         let response = await data.json();
         setCategories(response.data);
       };

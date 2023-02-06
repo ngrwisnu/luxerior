@@ -17,9 +17,7 @@ const Detail = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `https://5a743f9c-04ee-40f9-bc6e-a4c45bdf78cd.mock.pstmn.io/api/products/${productId}`
-      )
+      .get(`${process.env.URL}/api/products/${productId}`)
       .then((response) => setDetails(response.data))
       .catch((error) => {
         if (error) {

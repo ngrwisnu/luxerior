@@ -5,8 +5,6 @@ import { useGlobalContext } from "../../../helpers/hooks/useGlobalContext";
 import InputField from "../../atom/InputField/InputField";
 import { CheckoutType } from "./Types";
 
-const url = "https://5a743f9c-04ee-40f9-bc6e-a4c45bdf78cd.mock.pstmn.io";
-
 const CheckoutForm = () => {
   // @ts-ignore
   const [checkout, setMetaCheckout] = useState<CheckoutType>({
@@ -32,7 +30,7 @@ const CheckoutForm = () => {
   useEffect(() => {
     try {
       const getData = async () => {
-        let data = await fetch(`${url}/api/checkout/meta`);
+        let data = await fetch(`${process.env.URL}/api/checkout/meta`);
         let response = await data.json();
         setMetaCheckout(response);
       };
@@ -55,7 +53,7 @@ const CheckoutForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${url}/api/checkout`, {
+      const response = await fetch(`${process.env.URL}/api/checkout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
